@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useActiveSlide } from '../Context/ActiveSlideProvider';
 import { Slide } from '../Slide.types';
 import { Button } from './Common/Button';
 import { VariableWindow } from './Common/VariableWindow';
+import { FilmStrip } from './FilmStrip/FilmStrip';
 import { ExpensiveSlideContent } from './Slide/SlideContent';
 
 export const BusinessCase = ({
@@ -11,7 +13,7 @@ export const BusinessCase = ({
   slides: Slide[];
   setSlides: (slides: Slide[]) => void;
 }) => {
-  const activeSlide = slides[0];
+  const { activeSlide } = useActiveSlide();
   const [isVariableWindowOpen, setIsVariableWindowOpen] = useState(false);
 
   const toggleVariableWindow = () =>
@@ -20,6 +22,7 @@ export const BusinessCase = ({
   return (
     <div className="flex flex-col gap-8 px-20 py-10">
       <div className="flex gap-8">
+        <FilmStrip slides={slides} setSlides={setSlides} />
         <ExpensiveSlideContent
           slide={activeSlide}
           openVariableWindow={toggleVariableWindow}
