@@ -1,43 +1,19 @@
 import { useState } from 'react';
-import { FilmStrip, Slide } from './FilmStrip';
-
-const slides: Slide[] = [
-  {
-    id: '1',
-    title: 'Introduction',
-    description: "An overview of the presentation's main objectives.",
-  },
-  {
-    id: '2',
-    title: 'Problem Statement',
-    description: 'Identifying the core challenges to address.',
-  },
-  {
-    id: '3',
-    title: 'Proposed Solution',
-    description: 'Outline of the proposed solution and its benefits.',
-  },
-  {
-    id: '4',
-    title: 'Implementation',
-    description: 'Step-by-step plan for implementing the solution.',
-  },
-];
+import { Route, Routes } from 'react-router-dom';
+import { BusinessCase } from './Components/BusinessCase';
+import { Slide } from './Slide.types';
+import { DEFAULT_SLIDES } from './testData';
 
 export function App() {
-  const [activeSlide, setActiveSlide] = useState<string>(slides[0].id);
+  const [slides, setSlides] = useState<Slide[]>(DEFAULT_SLIDES);
 
   return (
-    <FilmStrip
-      userId="RupertSmith"
-      slides={slides}
-      activeSlide={activeSlide}
-      setSlides={() => undefined}
-      setActiveSlide={(slide) => {
-        console.log(slide);
-        setActiveSlide(slide);
-      }}
-    />
+    <Routes>
+      <Route
+        path="/:slideId"
+        element={<BusinessCase slides={slides} setSlides={setSlides} />}
+      />
+    </Routes>
   );
 }
 
